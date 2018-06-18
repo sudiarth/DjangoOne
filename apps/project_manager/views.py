@@ -7,9 +7,7 @@ def index(request):
 
     if 'user_id' in request.session:
         
-        user = User.objects.get(id=request.session['user_id'])
-
-        projects = m.Project.objects.filter(user_id=user).all().order_by('-created_at')
+        projects = m.Project.objects.filter(user_id=request.session['user_id']).order_by('-created_at')
         context = {
             'projects' : projects
         }

@@ -3,10 +3,12 @@ from . import models as m
 from django.contrib import messages
 
 def index(request):
-    context = {
-        'bills' : m.BillItem.objects.all().order_by('-created_at')
-    }
-    return render(request, 'bill_tracker/index.html', context)
+    if 'user_id' in request.session:
+        context = {
+            'bills' : m.BillItem.objects.filter(user_id=request.session['user_id']).order_by('-created_at')
+        }
+        return render(request, 'bill_tracker/index.html', context)
+    return redirect('auth_user:index')
 
 def create_bill(request):
     if request.method == 'POST':
@@ -14,6 +16,7 @@ def create_bill(request):
             bill_item = m.BillItem()
             bill_item.description = request.POST['html_description']
             bill_item.amount = request.POST['html_amount']
+            bill_item.user_id = request.session['user_id']
             bill_item.save()
 
             request.session['bill_description'] = bill_item.description
