@@ -9,18 +9,29 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'bill_tracker:index' %}">Bill Tracker</a>
+                    <a class="nav-link" href="{% url 'base_html:about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'project_manager:index' %}">Project Manager</a>
+                    <a class="nav-link" href="https://github.com/sudiarth/DjangoOne">
+                        <i class="fa fa-github"></i> Github</a>
                 </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Projects
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'bill_tracker:index' %}">Bill Tracker</a>
+                        <a class="dropdown-item" href="{% url 'project_manager:index' %}">Project Manager</a>
+                        <a class="dropdown-item" href="{% url 'litle_quote:index' %}">Lil Quote</a>
+                        <a class="dropdown-item" href="{% url 'tv_show:index' %}">TV Show</a>
+                    </div>
+                </li>
                 {% if request.session.name %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        {{ request.session.name }}
+                        <i class="fa fa-user"></i> {{ request.session.name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'auth_user:signout' %}">Signout</a>
@@ -31,6 +42,15 @@
                     <a class="nav-link" href="{% url 'auth_user:index' %}">Signin / Signup</a>
                 </li>
                 {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'litle_quote:search_by_user_or_email' %}" method="POST">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="search" name="html_query" placeholder="Search user" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

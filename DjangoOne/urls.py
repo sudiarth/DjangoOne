@@ -21,5 +21,7 @@ urlpatterns = [
     path('auth/', include('apps.auth_user.urls', namespace='auth_user')),
     path('bill/', include('apps.bill_tracker.urls', namespace='bill_tracker')),
     path('pm/', include('apps.project_manager.urls', namespace='project_manager')),
+    path('lq/', include('apps.litle_quote.urls', namespace='litle_quote')),
+    path('tv/', include('apps.tv_show.urls', namespace='tv_show')),
     path('admin/', admin.site.urls),
 ]

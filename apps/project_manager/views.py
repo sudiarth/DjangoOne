@@ -13,8 +13,7 @@ def index(request):
         }
         return render(request, 'project_manager/index.html', context)
 
-    else:
-        return redirect('auth_user:index')
+    return redirect('auth_user:index')
 
 def create_project(request):
     if 'user_id' in request.session:
@@ -29,8 +28,7 @@ def create_project(request):
         
         return redirect('project_manager:index')
 
-    else:
-        return redirect('auth_user:index')
+    return redirect('auth_user:index')
 
 def edit_project(request, project_id):
 
@@ -55,8 +53,7 @@ def edit_project(request, project_id):
         else:
             return render(request, 'project_manager/edit_project.html', context)
 
-    else:
-        return redirect('auth_user:index')
+    return redirect('auth_user:index')
 
 def delete_project(request, project_id):
 
@@ -66,8 +63,7 @@ def delete_project(request, project_id):
         project.delete()
         return redirect('project_manager:index')
 
-    else:
-        return redirect('auth_user:index')
+    return redirect('auth_user:index')
 
 def create_task(request, project_id):
 
@@ -89,8 +85,8 @@ def create_task(request, project_id):
             messages.error(request, 'Save task error')
 
         return redirect('project_manager:view_task', project_id=project.id)
-    else:
-        return redirect('auth_user:index')
+    
+    return redirect('auth_user:index')
 
 def view_task(request, project_id):
 
@@ -141,8 +137,7 @@ def edit_task(request, task_id):
         else:
             return render(request, 'project_manager/edit_task.html', context)
 
-    else:
-        return redirect('auth_user:index')
+    return redirect('auth_user:index')
 
 def delete_task(request, task_id):
     if 'user_id' in request.session:
@@ -151,5 +146,4 @@ def delete_task(request, task_id):
         task.delete()
         return redirect('project_manager:view_task', project_id=task.project_id)
 
-    else:
-        return redirect('auth_user:index')
+    return redirect('auth_user:index')
