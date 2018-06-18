@@ -1,0 +1,46 @@
+{% extends 'base_html/base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <h1>{{ project.title }}</h1>
+            <hr>
+            {% include 'base_html/errors.html' %}
+            <form action="{% url 'project_manager:create_task' project_id=project.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-9">
+                        <input name="description" type="text" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary">Add New Task</button>
+                        <a href="{% url 'project_manager:index' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div class="row">
+                <div class="col-9">
+                    <h4>Description</h4>
+                </div>
+                <div class="col-3">
+                    <h4>Action</h4>
+                </div>
+            </div>
+            <hr>
+            {% for task in tasks %}
+            <div class="row mb-2">
+                <div class="col-9">
+                    {{ task.description }}
+                </div>
+                <div class="col-3">
+                    <a href="{% url 'project_manager:edit_task' task_id=task.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'project_manager:delete_task' task_id=task.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

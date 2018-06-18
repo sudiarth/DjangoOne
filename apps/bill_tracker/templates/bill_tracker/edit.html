@@ -1,0 +1,23 @@
+{% extends 'base_html/base.html' %} {% block body %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <h1>Edit Bill #{{bill.id}}</h1>
+            <form action="{% url 'bill_tracker:edit_bill' bill_id=bill.id %}" method="POST" class="form-group row">
+                {% csrf_token %}
+                <div class="col-7">
+                    <input type="text" class="form-control" name="html_description" value="{{bill.description}}">
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control" name="html_amount" value="{{bill.amount}}">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-success">Edit bill</button>
+                    <a href="{% url 'bill_tracker:index' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+            {% include 'base_html/errors.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
