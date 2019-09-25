@@ -1,0 +1,35 @@
+{% extends 'base_html/base.html' %} {% block body %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-8 offset-2">
+            <h1>{{ user }}</h1>
+            <hr>
+            {% for quote in quotes %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p class="card-text">{{quote.content}}</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <footer class="blockquote-footer">
+                                        {% if request.session.user_id == quote.user_id %}
+                                        <a href="{% url 'litle_quote:quote_by_user' user_id=quote.user_id %}" class="text-success">{{quote.user.name}}</a> | <a href="{% url 'litle_quote:edit_quote' quote_id=quote.id %}" class="text-primary">Edit</a> | <a href="{% url 'litle_quote:delete_quote' quote_id=quote.id %}" class="text-danger">Delete</a>
+                                        {% else %}
+                                        <a href="{% url 'litle_quote:quote_by_user' user_id=quote.user_id %}" class="text-success">{{quote.user.name}}</a>
+                                        {% endif %}
+                                    </footer>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="card-text text-right">
+                                        <small class="text-muted">{{quote.created_at}}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}

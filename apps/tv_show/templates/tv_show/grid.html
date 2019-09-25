@@ -1,0 +1,38 @@
+{% load static %}
+<div class="container">
+    <div class="row">
+        {% if movies %}
+        <div class="col-lg-12">
+            <h1>Movie Liked</h1>
+            {% if count >= 2 %}
+                <h5>Display {{ count }} movies</h5>
+            {% else %}
+                <h5>Display {{ count }} movies</h5>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% for movie in movies %}
+        <div class="col-lg-3 mt-4">
+            <div class="card">
+                {% if movie.image %}
+                <img class="card-img-top img-responsive" src="{{ movie.image }}" alt="{{ movie.name }}">
+                {% else %}
+                <img class="card-img-top img-responsive" src="{% static 'base_html/img/no-image.jpg' %}" alt="{{ movie.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.name }}</h5>
+                </div>
+                {% if request.session.name %}
+                <div class="card-body">
+                    {% if movie.id in liked %}
+                    <a href="{% url 'tv_show:delete_like' movie_id=movie.id %}" class="card-link">Unlike</a>
+                    {% else %}
+                    <a href="{% url 'tv_show:create_like' movie_id=movie.id %}" class="card-link">Like</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

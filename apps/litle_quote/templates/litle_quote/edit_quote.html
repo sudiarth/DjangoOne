@@ -1,0 +1,25 @@
+{% extends 'base_html/base.html' %} {% block body %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-8 offset-2">
+            <h1>Edit Quote #{{ quote.id }}</h1>
+            <hr>
+            {% if request.session.user_id %}
+                {% include 'base_html/errors.html' %}
+                <form action="{% url 'litle_quote:edit_quote' quote_id=quote.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-body">
+                            <textarea class="form-control is-valid" placeholder="What's on your mind?" name="html_content">{{ quote.content }}</textarea>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

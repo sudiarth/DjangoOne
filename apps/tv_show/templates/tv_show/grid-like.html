@@ -1,0 +1,24 @@
+{% load static %}
+<div class="container">
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-lg-3 mt-4">
+            <div class="card">
+                {% if movie.movie.image %}
+                    <img class="card-img-top img-responsive" src="{{ movie.movie.image }}" alt="{{ movie.movie.name }}"> 
+                {% else %}
+                    <img class="card-img-top img-responsive" src="{% static 'base_html/img/no-image.jpg' %}" alt="{{ movie.movie.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.movie.name }}</h5>
+                </div>
+                {% if request.session.name %}
+                <div class="card-body">
+                    <a href="{% url 'tv_show:delete_like' movie_id=movie.movie_id %}" class="card-link">Unlike</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

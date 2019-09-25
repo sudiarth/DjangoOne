@@ -17,6 +17,7 @@
                         <div class="col-lg-12">
                             <form action="{% url 'auth_user:signin' %}" method="POST">
                                 {% csrf_token %}
+                                <input type="hidden" name="redirect" value="{{request.build_absolute_uri}}">
                                 <div class="form-group">
                                     <label for="email_login">Email address</label>
                                     <input type="email" class="form-control" id="email_login" name="html_email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -38,6 +39,7 @@
                         <div class="col-lg-12">
                             <form action="{% url 'auth_user:signup' %}" method="POST">
                                 {% csrf_token %}
+                                <input type="hidden" name="redirect" value="{{request.build_absolute_uri}}">
                                 <div class="form-group">
                                     <label for="name_register">Full Name</label>
                                     <input type="text" class="form-control" id="name_register" name="html_name" placeholder="Enter name">
